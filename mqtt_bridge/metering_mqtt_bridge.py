@@ -5,7 +5,7 @@ from PyP100.PyP100 import Metering
 from paho.mqtt.client import MQTTMessage
 
 from device_utils import execute_device_method
-from main import TOPIC_FORMAT
+from environment import TOPIC_FORMAT
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_manager import MqttManager
 
