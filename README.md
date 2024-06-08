@@ -5,7 +5,7 @@ A script to publish tapo device data to MQTT, and subscribe to topics to control
 ## Supported devices
 
 - P110 (tested, full control and monitoring)
-- P110 (untested, full control and monitoring)
+- P100 (untested, full control and monitoring)
 - L530 (untested, only metering and switching)
 
 ## Configuration
