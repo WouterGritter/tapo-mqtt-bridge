@@ -1,0 +1,5 @@
+PyYAML~=6.0.1
+#PyP100~=0.1.4
+git+https://github.com/almottier/TapoP100.git@main
+python-dotenv~=1.0.1
+paho-mqtt~=2.1.0

@@ -1,0 +1,17 @@
+devices:
+  # The name of the device to use for publishing/subscribing to MQTT topics
+  server-rack:
+    # The address of the device
+    address: '10.43.60.112'
+    # The type of the tapo device (P100, P110, L530)
+    type: 'P110'
+    # Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device
+    protected: true
+  tv-setup:
+    address: '10.43.60.72'
+    type: 'P110'
+    protected: false
+  boiler:
+    address: '10.43.60.69'
+    type: 'P110'
+    protected: false
