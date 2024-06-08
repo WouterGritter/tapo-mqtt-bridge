@@ -23,3 +23,7 @@ def print_environment():
     print(f'{MQTT_BROKER_PORT=}')
     print(f'{UPDATE_INTERVAL=}')
     print(f'{TOPIC_FORMAT=}')
+
+
+def generate_topic(device_name: str, attribute: str):
+    return TOPIC_FORMAT.replace('{device_name}', device_name).replace('{attribute}', attribute)

@@ -4,7 +4,7 @@ from PyP100.PyP100 import Switchable
 from paho.mqtt.client import MQTTMessage
 
 from device_utils import execute_device_method
-from environment import TOPIC_FORMAT
+from environment import generate_topic
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_manager import MqttManager
 
@@ -18,7 +18,7 @@ class SwitchableMqttBridge(MqttBridge):
 
         self.__previous_mqtt_status: Optional[bool] = None
 
-        self.__status_topic = TOPIC_FORMAT.replace('{device}', self.__name).replace('{attribute}', 'status')
+        self.__status_topic = generate_topic(self.__name, 'status')
 
         self.__mqtt_manager.subscribe(self.__status_topic, self.__mqtt_status_change)
 

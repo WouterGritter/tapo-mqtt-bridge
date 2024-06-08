@@ -5,7 +5,7 @@ from PyP100.PyP100 import Metering
 from paho.mqtt.client import MQTTMessage
 
 from device_utils import execute_device_method
-from environment import TOPIC_FORMAT
+from environment import generate_topic
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_manager import MqttManager
 
@@ -26,8 +26,8 @@ class MeteringMqttBridge(MqttBridge):
         self.__previous_energy: Optional[int] = None
         self.__previous_power: Optional[float] = None
 
-        self.__energy_topic = TOPIC_FORMAT.replace('{device}', self.__name).replace('{attribute}', 'energy')
-        self.__power_topic = TOPIC_FORMAT.replace('{device}', self.__name).replace('{attribute}', 'power')
+        self.__energy_topic = generate_topic(self.__name, 'energy')
+        self.__power_topic = generate_topic(self.__name, 'power')
 
         self.__mqtt_manager.subscribe(self.__energy_topic, self.__mqtt_energy_change)
 
