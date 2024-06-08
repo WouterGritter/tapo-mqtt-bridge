@@ -1,5 +1,6 @@
 from PyP100.PyL530 import L530
 
+from mqtt_bridge.color_mqtt_bridge import ColorMqttBridge
 from mqtt_bridge.composite_mqtt_bridge import CompositeMqttBridge
 from mqtt_bridge.metering_mqtt_bridge import MeteringMqttBridge
 from mqtt_bridge.switchable_mqtt_bridge import SwitchableMqttBridge
@@ -11,4 +12,5 @@ class L530MqttBridge(CompositeMqttBridge):
         super().__init__([
             MeteringMqttBridge(mqtt_manager, device, name),
             SwitchableMqttBridge(mqtt_manager, device, name, protected),
+            ColorMqttBridge(mqtt_manager, device, name, protected),
         ])
