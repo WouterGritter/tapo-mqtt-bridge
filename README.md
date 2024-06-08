@@ -19,9 +19,11 @@ The script expects the following environment variables to be present:
 - `UPDATE_INTERVAL` (defaults to `5` seconds)
 - `TOPIC_FORMAT` (defaults to `tapo/{device}/{attribute}`)
 
-The script expects a `devices.yml` file to be present in the app root by default.
+The script expects a `devices.yml` file to be present in the app root by default. But, this location can be changed using the `DEVICES_CONFIG_LOCATION` environment variable and also supports a `.json` file.
 
-Example configuration:
+In the provided `docker-compose.yml` file, the location is changed to `/etc/tapo-mqtt-bridge/devices.yml`.
+
+Example configuration (see also `devices.example.yml` and `devices.example.json`):
 ```yaml
 devices:
   # The name of the device to use for publishing/subscribing to MQTT topics

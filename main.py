@@ -1,3 +1,4 @@
+import json
 import time
 
 import yaml
@@ -18,12 +19,17 @@ MQTT_MANAGER = MqttManager(MQTT_BROKER_ADDRESS, MQTT_BROKER_PORT)
 
 
 def load_mqtt_bridges(file_name: str) -> list[MqttBridge]:
+    if file_name.endswith('.yml') or file_name.endswith('.yaml'):
+        with open(file_name) as stream:
+            config = yaml.safe_load(stream)
+    elif file_name.endswith('.json'):
+        with open(file_name) as stream:
+            config = json.load(stream)
+
     bridges = []
-    with open(file_name) as stream:
-        config = yaml.safe_load(stream)
-        devices = config['devices']
-        for name, device_config in devices.items():
-            bridges.append(create_mqtt_bridge(name, device_config))
+    devices = config['devices']
+    for name, device_config in devices.items():
+        bridges.append(create_mqtt_bridge(name, device_config))
 
     return bridges
 

@@ -3,3 +3,5 @@ __pycache__/
 venv/
 .env
 devices.yml
+devices.yaml
+devices.json

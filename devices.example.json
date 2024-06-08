@@ -1,0 +1,19 @@
+{
+  "devices": {
+    "server-rack": {
+      "address": "10.43.60.112",
+      "type": "P110",
+      "protected": true
+    },
+    "tv-setup": {
+      "address": "10.43.60.72",
+      "type": "P110",
+      "protected": false
+    },
+    "boiler": {
+      "address": "10.43.60.69",
+      "type": "P110",
+      "protected": false
+    }
+  }
+}
