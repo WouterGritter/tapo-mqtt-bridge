@@ -17,6 +17,7 @@ The script expects the following environment variables to be present:
 - `MQTT_BROKER_ADDRESS` (defaults to `localhost`)
 - `MQTT_BROKER_PORT` (defaults to `1883`)
 - `UPDATE_INTERVAL` (defaults to `5` seconds)
+- `TOPIC_FORMAT` (defaults to `tapo/{device}/{attribute}`)
 
 The script expects a `devices.yml` file to be present in the app root by default.
 
