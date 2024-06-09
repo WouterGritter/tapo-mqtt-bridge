@@ -68,6 +68,15 @@ def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
     raise Exception(f'Unknown device type \'{config["type"]}\'')
 
 
+def update_bridges(bridges: list[MqttBridge]):
+    for bridge in bridges:
+        try:
+            bridge.update_mqtt()
+        except Exception as ex:
+            print(f'An exception occurred while updating a device.')
+            print(ex)
+
+
 def main():
     print_environment()
 
@@ -76,14 +85,12 @@ def main():
 
     MQTT_MANAGER.connect()
 
+    time.sleep(UPDATE_INTERVAL)
     while True:
-        time.sleep(UPDATE_INTERVAL)
-        for bridge in bridges:
-            try:
-                bridge.update_mqtt()
-            except Exception as ex:
-                print(f'An exception occurred while updating a device.')
-                print(ex)
+        start = time.time()
+        update_bridges(bridges)
+        elapsed = time.time() - start
+        time.sleep(max(0, UPDATE_INTERVAL - elapsed))
 
 
 if __name__ == '__main__':
