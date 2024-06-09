@@ -26,4 +26,4 @@ def print_environment():
 
 
 def generate_topic(device_name: str, attribute: str):
-    return TOPIC_FORMAT.replace('{device_name}', device_name).replace('{attribute}', attribute)
+    return TOPIC_FORMAT.replace('{device}', device_name).replace('{attribute}', attribute)
