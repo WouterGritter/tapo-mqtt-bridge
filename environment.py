@@ -11,6 +11,7 @@ DEVICES_CONFIG = os.getenv('DEVICES_CONFIG')
 MQTT_BROKER_ADDRESS = os.getenv('MQTT_BROKER_ADDRESS', 'localhost')
 MQTT_BROKER_PORT = int(os.getenv('MQTT_BROKER_PORT', '1883'))
 UPDATE_INTERVAL = float(os.getenv('UPDATE_INTERVAL', '5'))
+FORCE_UPDATE_INTERVAL = float(os.getenv('FORCE_UPDATE_INTERVAL', '60'))
 TOPIC_FORMAT = os.getenv('TOPIC_FORMAT', 'tapo/{device}/{attribute}')
 
 
@@ -22,6 +23,7 @@ def print_environment():
     print(f'{MQTT_BROKER_ADDRESS=}')
     print(f'{MQTT_BROKER_PORT=}')
     print(f'{UPDATE_INTERVAL=}')
+    print(f'{FORCE_UPDATE_INTERVAL=}')
     print(f'{TOPIC_FORMAT=}')
 
 

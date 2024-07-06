@@ -31,10 +31,10 @@ class MeteringMqttBridge(MqttBridge):
 
         self.__mqtt_manager.subscribe(self.__energy_topic, self.__mqtt_energy_change)
 
-    def update_mqtt(self):
+    def update_mqtt(self, force_update: bool = False):
         metering_data = self.__fetch_metering_data()
 
-        if metering_data.power != self.__previous_power:
+        if force_update or metering_data.power != self.__previous_power:
             self.__mqtt_manager.publish(self.__power_topic, metering_data.power, True)
             self.__previous_power = metering_data.power
 
@@ -45,8 +45,9 @@ class MeteringMqttBridge(MqttBridge):
             else:
                 energy_delta = metering_data.energy - self.__previous_energy
 
-            if energy_delta > 0:
-                self.__cumulative_energy += energy_delta
+            self.__cumulative_energy += energy_delta
+
+            if force_update or energy_delta > 0:
                 self.__mqtt_manager.publish(self.__energy_topic, self.__cumulative_energy, True)
 
         self.__previous_energy = metering_data.energy

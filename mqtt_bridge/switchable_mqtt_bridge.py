@@ -22,9 +22,9 @@ class SwitchableMqttBridge(MqttBridge):
 
         self.__mqtt_manager.subscribe(self.__status_topic, self.__mqtt_status_change)
 
-    def update_mqtt(self):
+    def update_mqtt(self, force_update: bool = False):
         tapo_status = execute_device_method(self.__device, lambda d: d.get_status())
-        if self.__previous_mqtt_status != tapo_status:
+        if force_update or self.__previous_mqtt_status != tapo_status:
             self.__mqtt_manager.publish(self.__status_topic, '1' if tapo_status else '0', True)
             self.__previous_mqtt_status = tapo_status
 

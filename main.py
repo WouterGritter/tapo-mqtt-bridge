@@ -7,7 +7,7 @@ from PyP100.PyP100 import P100
 from PyP100.PyP110 import P110
 
 from environment import MQTT_BROKER_ADDRESS, MQTT_BROKER_PORT, TP_LINK_EMAIL, TP_LINK_PASSWORD, DEVICES_CONFIG_LOCATION, \
-    DEVICES_CONFIG, UPDATE_INTERVAL, print_environment
+    DEVICES_CONFIG, UPDATE_INTERVAL, FORCE_UPDATE_INTERVAL, print_environment
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_bridge.p100_mqtt_bridge import P100MqttBridge
 from mqtt_bridge.p530_mqtt_bridge import L530MqttBridge
@@ -68,10 +68,10 @@ def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
     raise Exception(f'Unknown device type \'{config["type"]}\'')
 
 
-def update_bridges(bridges: list[MqttBridge]):
+def update_bridges(bridges: list[MqttBridge], force_update: bool):
     for bridge in bridges:
         try:
-            bridge.update_mqtt()
+            bridge.update_mqtt(force_update)
         except Exception as ex:
             print(f'An exception occurred while updating a device.')
             print(ex)
@@ -86,10 +86,18 @@ def main():
     MQTT_MANAGER.connect()
 
     time.sleep(UPDATE_INTERVAL)
+
+    last_force_update = 0
     while True:
-        start = time.time()
-        update_bridges(bridges)
+        now = time.time()
+        force_update = now - last_force_update >= FORCE_UPDATE_INTERVAL
+        if force_update:
+            last_force_update = now
+
+        start = now
+        update_bridges(bridges, force_update)
         elapsed = time.time() - start
+
         time.sleep(max(0, UPDATE_INTERVAL - elapsed))
 
 

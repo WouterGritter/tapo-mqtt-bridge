@@ -11,5 +11,5 @@ class ColorMqttBridge(MqttBridge):
         self.__name = name
         self.__protected = protected
 
-    def update_mqtt(self):
+    def update_mqtt(self, force_update: bool = False):
         pass
