@@ -28,8 +28,6 @@ The script expects the following environment variables to be present:
 
 The script expects a `devices.yml` file to be present in the app root (when running standalone) or at `/etc/tapo-mqtt-bridge/devices.yml` (when running in docker) by default. But, this location can be changed using the `DEVICES_CONFIG_LOCATION` environment variable and also supports a `.json` file.
 
-In the provided `docker-compose.yml` file, the location is changed to `/etc/tapo-mqtt-bridge/devices.yml`.
-
 When the `DEVICES_CONFIG` environment variable is present, the script does not load any file and loads the device configuration through the environment variable instead. This environment variable should be in JSON format.
 
 Example configuration (see also `devices.example.yml` and `devices.example.json`):
