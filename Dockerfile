@@ -12,4 +12,6 @@ RUN pip3 install -r requirements.txt
 COPY *.py ./
 COPY mqtt_bridge/*.py ./mqtt_bridge/
 
+ENV DEVICES_CONFIG_LOCATION /etc/tapo-mqtt-bridge/devices.yml
+
 CMD [ "python3", "-u", "main.py" ]
