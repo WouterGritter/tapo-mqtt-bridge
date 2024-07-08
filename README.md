@@ -55,11 +55,11 @@ devices:
 
 **Switchable devices**
 
-Switchable devices publish and subscribe to `tapo/<device_name>/status`, and expect/publish a '1' and a '0' as the value.
+Switchable devices publish and subscribe to `tapo/<device_name>/status` by default, and expect/publish a '1' and a '0' as the value.
 
 **Metering devices**
 
-Metering devices publish to `tapo/<device_name>/power` and `tapo/<device_name>/energy`. They also subscribe to the energy endpoint to allow persistence of data.
+Metering devices publish to `tapo/<device_name>/power` and `tapo/<device_name>/energy` by default. They also subscribe to the energy endpoint to allow persistence of data.
 
 Note that metering devices do not publish the daily or monthly energy data as provided by the tapo API. The script calculates the difference between energy measurements, resulting in an absolute energy measurement being available on the MQTT broker. A limitation of this approach is that the energy consumption between server restarts will be missing.
 
