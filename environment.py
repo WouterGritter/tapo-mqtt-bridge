@@ -19,17 +19,24 @@ TOPIC_FORMAT = os.getenv('TOPIC_FORMAT', 'tapo/{device}/{attribute}')
 
 def print_environment():
     print(f'{TP_LINK_EMAIL=}')
-    print(f'TP_LINK_PASSWORD={'*' * len(TP_LINK_PASSWORD or '')}')
+    print(f'TP_LINK_PASSWORD={hide_password(TP_LINK_PASSWORD)}')
     print(f'{DEVICES_CONFIG_LOCATION=}')
     print(f'{DEVICES_CONFIG=}')
     print(f'{MQTT_BROKER_ADDRESS=}')
     print(f'{MQTT_BROKER_PORT=}')
     print(f'{MQTT_BROKER_USERNAME=}')
-    print(f'MQTT_BROKER_PASSWORD={'*' * len(MQTT_BROKER_PASSWORD or '')}')
+    print(f'MQTT_BROKER_PASSWORD={hide_password(MQTT_BROKER_PASSWORD)}')
     print(f'{UPDATE_INTERVAL=}')
     print(f'{FORCE_UPDATE_INTERVAL=}')
     print(f'{TOPIC_FORMAT=}')
 
 
-def generate_topic(device_name: str, attribute: str):
-    return TOPIC_FORMAT.replace('{device}', device_name).replace('{attribute}', attribute)
+def hide_password(password):
+    if password is not None:
+        return '*' * len(password)
+    else:
+        return None
+
+
+def generate_topic(device: str, attribute: str):
+    return TOPIC_FORMAT.format(device=device, attribute=attribute)
