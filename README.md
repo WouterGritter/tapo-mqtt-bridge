@@ -20,6 +20,8 @@ The script expects the following environment variables to be present:
 | `DEVICES_CONFIG`          | no default                                                               | Supports JSON only                                                                  | no        |
 | `MQTT_BROKER_ADDRESS`     | `localhost`                                                              |                                                                                     | no        |
 | `MQTT_BROKER_PORT`        | `1883`                                                                   |                                                                                     | no        |
+| `MQTT_BROKER_USERNAME`    | no default                                                               |                                                                                     | no        |
+| `MQTT_BROKER_PASSWORD`    | no default                                                               |                                                                                     | no        |
 | `UPDATE_INTERVAL`         | `5` seconds                                                              | Interval between MQTT publishes if value is different compared to the previous push | no        |
 | `FORCE_UPDATE_INTERVAL`   | `60` seconds                                                             | Interval between MQTT publishes regardless of if value is different                 | no        |
 | `TOPIC_FORMAT`            | `tapo/{device}/{attribute}`                                              |                                                                                     | no        |

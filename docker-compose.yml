@@ -8,6 +8,8 @@ services:
       TP_LINK_PASSWORD: ${TP_LINK_PASSWORD}
       MQTT_BROKER_ADDRESS: ${MQTT_BROKER_ADDRESS:-localhost}
       MQTT_BROKER_PORT: ${MQTT_BROKER_PORT:-1883}
+      MQTT_BROKER_USERNAME: ${MQTT_BROKER_USERNAME}
+      MQTT_BROKER_PASSWORD: ${MQTT_BROKER_PASSWORD}
     volumes:
       - ./devices.yml:/etc/tapo-mqtt-bridge/devices.yml:ro
     restart: unless-stopped

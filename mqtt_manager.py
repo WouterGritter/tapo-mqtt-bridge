@@ -1,4 +1,3 @@
-import json
 from typing import Callable
 
 import paho.mqtt.client as mqtt
@@ -6,9 +5,11 @@ from paho.mqtt.client import MQTTMessage
 
 
 class MqttManager:
-    def __init__(self, mqtt_broker_address: str, mqtt_broker_port: int):
+    def __init__(self, mqtt_broker_address: str, mqtt_broker_port: int, mqtt_username: str, mqtt_password: str):
         self.mqtt_broker_address = mqtt_broker_address
         self.mqtt_broker_port = mqtt_broker_port
+        self.mqtt_username = mqtt_username
+        self.mqtt_password = mqtt_password
 
         self.subscribers: dict[str, Callable[[MQTTMessage], None]] = dict()
 
@@ -18,6 +19,10 @@ class MqttManager:
 
     def connect(self):
         print('Connecting to MQTT...')
+
+        if self.mqtt_username is not None and self.mqtt_password is not None:
+            self.client.username_pw_set(self.mqtt_username, self.mqtt_password)
+
         self.client.connect(self.mqtt_broker_address, self.mqtt_broker_port, 60)
         self.client.loop_start()
 
