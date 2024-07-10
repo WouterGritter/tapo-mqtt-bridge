@@ -4,7 +4,7 @@ A script to publish tapo device data to MQTT, and subscribe to topics to control
 
 ## Supported devices
 
-- P110 (tested, full control and monitoring)
+- P110/P115 (tested, full control and monitoring)
 - P100 (untested, full control and monitoring)
 - L530 (untested, only metering and switching)
 
@@ -37,7 +37,7 @@ devices:
   server-rack:
     # The address of the device
     address: '10.43.60.112'
-    # The type of the tapo device (P100, P110, L530)
+    # The type of the tapo device (P100, P110, P115, L530)
     type: 'P110'
     # Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device
     protected: true

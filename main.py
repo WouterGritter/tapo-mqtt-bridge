@@ -48,7 +48,7 @@ def load_mqtt_bridges() -> list[MqttBridge]:
 
 
 def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
-    if config['type'] == 'P110':
+    if config['type'] == 'P110' or config['type'] == 'P115':
         return P110MqttBridge(
             MQTT_MANAGER,
             P110(config['address'], TP_LINK_EMAIL, TP_LINK_PASSWORD),
