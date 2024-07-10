@@ -3,7 +3,9 @@
     "server-rack": {
       "address": "10.43.60.112",
       "type": "P110",
-      "protected": true
+      "protected": true,
+      "email": "$TP_LINK_EMAIL",
+      "password": "$TP_LINK_PASSWORD"
     },
     "tv-setup": {
       "address": "10.43.60.72",
