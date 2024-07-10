@@ -1,4 +1,5 @@
 import json
+import os
 import time
 
 import yaml
@@ -48,24 +49,38 @@ def load_mqtt_bridges() -> list[MqttBridge]:
 
 
 def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
+    if 'email' in config:
+        email = config['email']
+        if email.startswith('$'):
+            email = os.getenv(email[1:])
+    else:
+        email = TP_LINK_EMAIL
+
+    if 'password' in config:
+        password = config['password']
+        if password.startswith('$'):
+            password = os.getenv(password[1:])
+    else:
+        password = TP_LINK_PASSWORD
+
     if config['type'] == 'P110' or config['type'] == 'P115':
         return P110MqttBridge(
             MQTT_MANAGER,
-            P110(config['address'], TP_LINK_EMAIL, TP_LINK_PASSWORD),
+            P110(config['address'], email, password),
             name,
             config['protected'],
         )
     elif config['type'] == 'P100':
         return P100MqttBridge(
             MQTT_MANAGER,
-            P100(config['address'], TP_LINK_EMAIL, TP_LINK_PASSWORD),
+            P100(config['address'], email, password),
             name,
             config['protected'],
         )
     elif config['type'] == 'L530':
         return L530MqttBridge(
             MQTT_MANAGER,
-            L530(config['address'], TP_LINK_EMAIL, TP_LINK_PASSWORD),
+            L530(config['address'], email, password),
             name,
             config['protected'],
         )

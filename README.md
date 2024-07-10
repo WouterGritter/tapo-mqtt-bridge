@@ -41,6 +41,12 @@ devices:
     type: 'P110'
     # Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device
     protected: true
+    # (Optional) email to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_EMAIL` is used.
+    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_EMAIL'
+    email: $TP_LINK_EMAIL
+    # (Optional) password to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_PASSWORD` is used.
+    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_PASSWORD'
+    password: $TP_LINK_PASSWORD
   tv-setup:
     address: '10.43.60.72'
     type: 'P110'
