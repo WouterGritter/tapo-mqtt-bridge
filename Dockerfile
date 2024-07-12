@@ -14,4 +14,7 @@ COPY mqtt_bridge/*.py ./mqtt_bridge/
 
 ENV DEVICES_CONFIG_LOCATION /etc/tapo-mqtt-bridge/devices.yml
 
+ARG IMAGE_VERSION=Unknown
+ENV IMAGE_VERSION=${IMAGE_VERSION}
+
 CMD [ "python3", "-u", "main.py" ]

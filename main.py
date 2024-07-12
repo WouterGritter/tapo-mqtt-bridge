@@ -98,6 +98,8 @@ def update_bridges(bridges: list[MqttBridge], force_update: bool):
 
 
 def main():
+    print(f'tapo-mqtt-bridge version {os.getenv("IMAGE_VERSION")}')
+
     print_environment()
 
     bridges = load_mqtt_bridges()
