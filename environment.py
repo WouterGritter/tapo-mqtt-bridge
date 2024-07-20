@@ -15,6 +15,7 @@ MQTT_BROKER_PASSWORD = os.getenv('MQTT_BROKER_PASSWORD')
 UPDATE_INTERVAL = float(os.getenv('UPDATE_INTERVAL', '5'))
 FORCE_UPDATE_INTERVAL = float(os.getenv('FORCE_UPDATE_INTERVAL', '60'))
 TOPIC_FORMAT = os.getenv('TOPIC_FORMAT', 'tapo/{device}/{attribute}')
+METERING_MIN_POWER = float(os.getenv('MIN_POWER', '1.0'))
 
 
 def print_environment():
@@ -29,6 +30,7 @@ def print_environment():
     print(f'{UPDATE_INTERVAL=}')
     print(f'{FORCE_UPDATE_INTERVAL=}')
     print(f'{TOPIC_FORMAT=}')
+    print(f'{METERING_MIN_POWER=}')
 
 
 def hide_password(password):

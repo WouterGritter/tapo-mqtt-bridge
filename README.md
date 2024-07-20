@@ -25,6 +25,7 @@ The script expects the following environment variables to be present:
 | `UPDATE_INTERVAL`         | `5` seconds                                                              | Interval between MQTT publishes if value is different compared to previous value | no        |
 | `FORCE_UPDATE_INTERVAL`   | `60` seconds                                                             | Interval between MQTT publishes regardless of if value is different              | no        |
 | `TOPIC_FORMAT`            | `tapo/{device}/{attribute}`                                              |                                                                                  | no        |
+| `METERING_MIN_POWER`      | `1.0` watt                                                               | If the power usage is lower than this, mark the power usage as `0` watts         | no        |
 
 The script expects a `devices.yml` file to be present in the app root (when running standalone) or at `/etc/tapo-mqtt-bridge/devices.yml` (when running in docker) by default. But, this location can be changed using the `DEVICES_CONFIG_LOCATION` environment variable and also supports a `.json` file.
 

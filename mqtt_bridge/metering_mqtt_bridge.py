@@ -5,14 +5,14 @@ from PyP100.PyP100 import Metering
 from paho.mqtt.client import MQTTMessage
 
 from device_utils import execute_device_method
-from environment import generate_topic
+from environment import generate_topic, METERING_MIN_POWER
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_manager import MqttManager
 
 
 @dataclass
 class MeteringData:
-    energy: int
+    month_energy: int
     power: float
 
 
@@ -39,24 +39,30 @@ class MeteringMqttBridge(MqttBridge):
             self.__previous_power = metering_data.power
 
         if self.__previous_energy is not None:
-            if metering_data.energy < self.__previous_energy:
+            if metering_data.month_energy < self.__previous_energy:
                 # The energy counter on the tapo device has reset
-                energy_delta = metering_data.energy
+                energy_delta = metering_data.month_energy
             else:
-                energy_delta = metering_data.energy - self.__previous_energy
+                energy_delta = metering_data.month_energy - self.__previous_energy
 
             self.__cumulative_energy += energy_delta
 
             if force_update or energy_delta > 0:
                 self.__mqtt_manager.publish(self.__energy_topic, self.__cumulative_energy, True)
 
-        self.__previous_energy = metering_data.energy
+        self.__previous_energy = metering_data.month_energy
 
     def __fetch_metering_data(self) -> MeteringData:
         energy_usage = execute_device_method(self.__device, lambda d: d.getEnergyUsage())
+
+        month_energy = energy_usage['month_energy']
+        power = energy_usage['current_power'] / 1000
+        if power < METERING_MIN_POWER:
+            power = 0.0
+
         return MeteringData(
-            energy=energy_usage['month_energy'],
-            power=energy_usage['current_power'] / 1000,
+            month_energy=month_energy,
+            power=power,
         )
 
     def __mqtt_energy_change(self, message: MQTTMessage):
