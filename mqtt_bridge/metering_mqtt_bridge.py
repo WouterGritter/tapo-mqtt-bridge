@@ -56,9 +56,12 @@ class MeteringMqttBridge(MqttBridge):
         energy_usage = execute_device_method(self.__device, lambda d: d.getEnergyUsage())
 
         month_energy = energy_usage['month_energy']
-        power = round(energy_usage['current_power'] / 1000, None if METERING_POWER_DECIMALS == 0 else METERING_POWER_DECIMALS)
+        power = round(energy_usage['current_power'] / 1000, METERING_POWER_DECIMALS)
         if power < METERING_MIN_POWER:
             power = 0.0
+
+        if METERING_POWER_DECIMALS <= 0:
+            power = int(power)
 
         return MeteringData(
             month_energy=month_energy,
