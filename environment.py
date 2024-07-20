@@ -16,6 +16,7 @@ UPDATE_INTERVAL = float(os.getenv('UPDATE_INTERVAL', '5'))
 FORCE_UPDATE_INTERVAL = float(os.getenv('FORCE_UPDATE_INTERVAL', '60'))
 TOPIC_FORMAT = os.getenv('TOPIC_FORMAT', 'tapo/{device}/{attribute}')
 METERING_MIN_POWER = float(os.getenv('METERING_MIN_POWER', '1.0'))
+METERING_POWER_DECIMALS = int(os.getenv('METERING_POWER_DECIMALS', '2'))
 
 
 def print_environment():
@@ -31,6 +32,7 @@ def print_environment():
     print(f'{FORCE_UPDATE_INTERVAL=}')
     print(f'{TOPIC_FORMAT=}')
     print(f'{METERING_MIN_POWER=}')
+    print(f'{METERING_POWER_DECIMALS=}')
 
 
 def hide_password(password):

@@ -5,7 +5,7 @@ from PyP100.PyP100 import Metering
 from paho.mqtt.client import MQTTMessage
 
 from device_utils import execute_device_method
-from environment import generate_topic, METERING_MIN_POWER
+from environment import generate_topic, METERING_MIN_POWER, METERING_POWER_DECIMALS
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_manager import MqttManager
 
@@ -56,7 +56,7 @@ class MeteringMqttBridge(MqttBridge):
         energy_usage = execute_device_method(self.__device, lambda d: d.getEnergyUsage())
 
         month_energy = energy_usage['month_energy']
-        power = energy_usage['current_power'] / 1000
+        power = round(energy_usage['current_power'] / 1000, None if METERING_POWER_DECIMALS == 0 else METERING_POWER_DECIMALS)
         if power < METERING_MIN_POWER:
             power = 0.0
 

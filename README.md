@@ -12,20 +12,21 @@ A script to publish tapo device data to MQTT, and subscribe to topics to control
 
 The script expects the following environment variables to be present:
 
-| Environment variable      | Default value                                                            | Notes                                                                            | Required? |
-|---------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------------------|-----------|
-| `TP_LINK_EMAIL`           | no default                                                               |                                                                                  | yes       |
-| `TP_LINK_PASSWORD`        | no default                                                               |                                                                                  | yes       |
-| `DEVICES_CONFIG_LOCATION` | `devices.yml` (standalone), `/etc/tapo-mqtt-bridge/devices.yml` (docker) | Supports JSON as well as YAML, ignored if `DEVICES_CONFIG` is present            | no        |
-| `DEVICES_CONFIG`          | no default                                                               | Supports JSON only                                                               | no        |
-| `MQTT_BROKER_ADDRESS`     | `localhost`                                                              |                                                                                  | no        |
-| `MQTT_BROKER_PORT`        | `1883`                                                                   |                                                                                  | no        |
-| `MQTT_BROKER_USERNAME`    | no default                                                               |                                                                                  | no        |
-| `MQTT_BROKER_PASSWORD`    | no default                                                               |                                                                                  | no        |
-| `UPDATE_INTERVAL`         | `5` seconds                                                              | Interval between MQTT publishes if value is different compared to previous value | no        |
-| `FORCE_UPDATE_INTERVAL`   | `60` seconds                                                             | Interval between MQTT publishes regardless of if value is different              | no        |
-| `TOPIC_FORMAT`            | `tapo/{device}/{attribute}`                                              |                                                                                  | no        |
-| `METERING_MIN_POWER`      | `1.0` watt                                                               | If the power usage is lower than this, mark the power usage as `0` watts         | no        |
+| Environment variable      | Default value                                                            | Notes                                                                                         | Required? |
+|---------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|-----------|
+| `TP_LINK_EMAIL`           | no default                                                               |                                                                                               | yes       |
+| `TP_LINK_PASSWORD`        | no default                                                               |                                                                                               | yes       |
+| `DEVICES_CONFIG_LOCATION` | `devices.yml` (standalone), `/etc/tapo-mqtt-bridge/devices.yml` (docker) | Supports JSON as well as YAML, ignored if `DEVICES_CONFIG` is present                         | no        |
+| `DEVICES_CONFIG`          | no default                                                               | Supports JSON only                                                                            | no        |
+| `MQTT_BROKER_ADDRESS`     | `localhost`                                                              |                                                                                               | no        |
+| `MQTT_BROKER_PORT`        | `1883`                                                                   |                                                                                               | no        |
+| `MQTT_BROKER_USERNAME`    | no default                                                               |                                                                                               | no        |
+| `MQTT_BROKER_PASSWORD`    | no default                                                               |                                                                                               | no        |
+| `UPDATE_INTERVAL`         | `5` seconds                                                              | Interval between MQTT publishes if value is different compared to previous value              | no        |
+| `FORCE_UPDATE_INTERVAL`   | `60` seconds                                                             | Interval between MQTT publishes regardless of if value is different                           | no        |
+| `TOPIC_FORMAT`            | `tapo/{device}/{attribute}`                                              |                                                                                               | no        |
+| `METERING_MIN_POWER`      | `1.0` watt                                                               | If the power usage is lower than this, mark the power usage as `0` watts for metering devices | no        |
+| `METERING_POWER_DECIMALS` | `2` decimals                                                             | The amount of decimals to round the power usage to for metering devices                       | no        |
 
 The script expects a `devices.yml` file to be present in the app root (when running standalone) or at `/etc/tapo-mqtt-bridge/devices.yml` (when running in docker) by default. But, this location can be changed using the `DEVICES_CONFIG_LOCATION` environment variable and also supports a `.json` file.
 
