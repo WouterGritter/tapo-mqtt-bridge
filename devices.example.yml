@@ -1,18 +1,25 @@
 devices:
-  # The name of the device to use for publishing/subscribing to MQTT topics
+  # The name of the device to use for publishing/subscribing to MQTT topics.
   server-rack:
-    # The address of the device
+    # The address of the device.
     address: '10.43.60.112'
-    # The type of the tapo device (P100, P110, L530)
+    # The type of the tapo device (P100, P110, P115, L530).
     type: 'P110'
-    # Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device
+    # (Optional) Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device.
+    # When absent, the device is protected.
     protected: true
-    # (Optional) email to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_EMAIL` is used.
-    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_EMAIL'
+    # (Optional) The email to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_EMAIL` is used.
+    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_EMAIL'.
     email: $TP_LINK_EMAIL
-    # (Optional) password to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_PASSWORD` is used.
-    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_PASSWORD'
+    # (Optional) The password to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_PASSWORD` is used.
+    # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_PASSWORD'.
     password: $TP_LINK_PASSWORD
+    # (Optional) The minimum amount of power to record for this device. When the actual power reading is less than this, the reading is replaced with 0.0 watts.
+    # When absent, the environment variable `METERING_MIN_POWER` is used with a default of 1.0 watts.
+    min_power: 1.0
+    # (Optional) The amount of decimals to round the power usage of this device to.
+    # When absent, the environment variable `METERING_POWER_DECIMALS` is used with a default of 2 decimals.
+    power_decimals: 2
   tv-setup:
     address: '10.43.60.72'
     type: 'P110'
