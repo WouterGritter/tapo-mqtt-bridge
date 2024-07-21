@@ -75,7 +75,7 @@ def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
             MQTT_MANAGER,
             P100(config['address'], email, password),
             name,
-            config['protected'],
+            config.get('protected', True),
         )
     elif config['type'] == 'L530':
         return L530MqttBridge(

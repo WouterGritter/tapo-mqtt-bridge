@@ -41,7 +41,8 @@ devices:
     address: '10.43.60.112'
     # The type of the tapo device (P100, P110, P115, L530).
     type: 'P110'
-    # Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device.
+    # (Optional) Whether the device is protected or not, meaning publishing to its topics will not result in status changes of the device.
+    # When absent, the device is protected.
     protected: true
     # (Optional) The email to use when authenticating with TP-Link. When absent, the environment variable `TP_LINK_EMAIL` is used.
     # May reference an environment variable when prefixed with '$', e.g. '$TP_LINK_EMAIL'.
