@@ -9,7 +9,8 @@ from PyP100.PyP110 import P110
 
 from environment import MQTT_BROKER_ADDRESS, MQTT_BROKER_PORT, MQTT_BROKER_USERNAME, MQTT_BROKER_PASSWORD, \
     TP_LINK_EMAIL, TP_LINK_PASSWORD, DEVICES_CONFIG_LOCATION, \
-    DEVICES_CONFIG, UPDATE_INTERVAL, FORCE_UPDATE_INTERVAL, print_environment
+    DEVICES_CONFIG, UPDATE_INTERVAL, FORCE_UPDATE_INTERVAL, print_environment, METERING_MIN_POWER, \
+    METERING_POWER_DECIMALS
 from mqtt_bridge.mqtt_bridge import MqttBridge
 from mqtt_bridge.p100_mqtt_bridge import P100MqttBridge
 from mqtt_bridge.p530_mqtt_bridge import L530MqttBridge
@@ -68,7 +69,9 @@ def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
             MQTT_MANAGER,
             P110(config['address'], email, password),
             name,
-            config['protected'],
+            config.get('protected', True),
+            config.get('min_power', METERING_MIN_POWER),
+            config.get('power_decimals', METERING_POWER_DECIMALS),
         )
     elif config['type'] == 'P100':
         return P100MqttBridge(
@@ -82,7 +85,9 @@ def create_mqtt_bridge(name: str, config: dict[str, any]) -> MqttBridge:
             MQTT_MANAGER,
             L530(config['address'], email, password),
             name,
-            config['protected'],
+            config.get('protected', True),
+            config.get('min_power', METERING_MIN_POWER),
+            config.get('power_decimals', METERING_POWER_DECIMALS),
         )
 
     raise Exception(f'Unknown device type \'{config["type"]}\'')
