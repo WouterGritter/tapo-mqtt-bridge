@@ -10,3 +10,9 @@ class P100MqttBridge(CompositeMqttBridge):
         super().__init__([
             SwitchableMqttBridge(mqtt_manager, device, name, protected),
         ])
+
+        self.device = device
+        self.name = name
+
+    def __str__(self):
+        return f'P100MqttBridge[name={self.name}, device.address={self.device.address}]'

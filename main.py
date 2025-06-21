@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import time
 
@@ -98,12 +99,26 @@ def update_bridges(bridges: list[MqttBridge], force_update: bool):
         try:
             bridge.update_mqtt(force_update)
         except Exception as ex:
-            print(f'An exception occurred while updating a device.')
-            print(ex)
+            print(f'An exception occurred while updating device {bridge.__str__()}: {ex}')
+
+
+class DropProtocolInitFilter(logging.Filter):
+    def filter(self, record):
+        return not (
+            record.levelno == logging.ERROR
+            and 'Failed to initialize protocol' in record.getMessage()
+        )
 
 
 def main():
     print(f'tapo-mqtt-bridge version {os.getenv("IMAGE_VERSION")}')
+
+    # Prevent error spam by PyP100 library when a device cannot be reached (exception will still be handled by `update_bridges`)
+    # Error spam is caused by PyP100.PyP100, function `_initialize`:
+    # log.exception(
+    #     f"Failed to initialize protocol {protocol_class.__name__}"
+    # )
+    logging.getLogger('PyP100.PyP100').addFilter(DropProtocolInitFilter())
 
     print_environment()
 

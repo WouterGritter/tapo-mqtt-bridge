@@ -12,3 +12,9 @@ class P110MqttBridge(CompositeMqttBridge):
             SwitchableMqttBridge(mqtt_manager, device, name, protected),
             MeteringMqttBridge(mqtt_manager, device, name, min_power, power_decimals),
         ])
+
+        self.device = device
+        self.name = name
+
+    def __str__(self):
+        return f'P110MqttBridge[name={self.name}, device.address={self.device.address}]'

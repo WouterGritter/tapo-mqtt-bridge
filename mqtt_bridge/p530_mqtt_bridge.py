@@ -14,3 +14,9 @@ class L530MqttBridge(CompositeMqttBridge):
             ColorMqttBridge(mqtt_manager, device, name, protected),
             MeteringMqttBridge(mqtt_manager, device, name, min_power, power_decimals),
         ])
+
+        self.device = device
+        self.name = name
+
+    def __str__(self):
+        return f'L530MqttBridge[name={self.name}, device.address={self.device.address}]'
